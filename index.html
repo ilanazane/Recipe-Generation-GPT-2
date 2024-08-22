@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe Generator</title>
+    <script>
+        async function generateRecipe() {
+            const ingredients = document.getElementById('ingredients').value;
+            const response = await fetch('/generate_recipe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ingredients: ingredients })
+            });
+            const data = await response.json();
+            document.getElementById('recipe').innerText = data.recipe;
+        }
+    </script>
+</head>
+<body>
+    <h1>Recipe Generator</h1>
+    <textarea id="ingredients" rows="4" cols="50" placeholder="Enter ingredients"></textarea><br>
+    <button onclick="generateRecipe()">Generate Recipe</button>
+    <h2>Generated Recipe:</h2>
+    <p id="recipe"></p>
+</body>
+</html>
